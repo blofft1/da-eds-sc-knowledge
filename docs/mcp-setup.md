@@ -7,10 +7,11 @@ These MCP servers are what let Claude **read and write DA content and AEM Conten
 |---|---|---|
 | **DA content** | `da_*` (e.g. `da_get_source`, `da_update_source`, `da_create_source`, `da_move_content`, `da_upload_media`, `da_lookup_fragment`, `da_get_versions`) | Read/write DA sources (pages, docs, **config sheets**), fragments, media, version history on `content.da.live` |
 | **AEM Author** | `*-aem-*` (e.g. `create-aem-fragment`, `patch-aem-page-content`, `list-aem-fragments`, `create-aem-launch`, `publish-aem-content`) | Content Fragments + models, pages, launches, publish on AEM Cloud Service |
-| **hlx-admin / helix-mcp** | `da_write`, bulk preview/publish | Write DA content + CDN-bust in one call; bulk **preview/publish** via `admin.hlx.page` (the piece the `da_*` source tools lack). Run locally: `npx @adobe/hlx-admin-mcp` |
+| **helix-mcp** (public, **read-only**) | `page-status`, `start/check-bulk-status`, `audit-log`, `rum-data`, `aem-docs-search`, `block-list/-details` | Status + telemetry for DA/EDS sites. **No publish/preview *action*.** Add: `claude mcp add helix-mcp -- npx https://github.com/cloudadoption/helix-mcp` (needs `HELIX_ADMIN_API_TOKEN` — see [aem.live/docs/admin-apikeys](https://www.aem.live/docs/admin-apikeys)) |
+| **Publish DA/EDS pages** | preview/publish action | The `da_*` source tools and helix-mcp do **not** publish. Options: the **hosted DA MCP** `https://mcp.adobeaemcloud.com/adobe/mcp/da` (SuperSkills labels it write/**preview/publish** — verify the tools appear) · the **da.live sidekick / Preview-Publish UI** (2 clicks) · `admin.hlx.page` directly. `@adobe/hlx-admin-mcp` from the SuperSkills README is **not on public npm** (Adobe-internal). |
 
 ## Fastest setup — SuperSkills installer
-The SuperSkills `setup.sh` wires the MCP servers for you (DA MCP, hlx-admin MCP `da_write`, helix-mcp bulk preview/publish) + AEM CLI + Playwright:
+The SuperSkills `setup.sh` runs `claude mcp add` for the **DA MCP** (`https://mcp.adobeaemcloud.com/adobe/mcp/da`), **helix-mcp** (status/telemetry, read-only), n8n, and an **hlx-admin** entry pointed at `localhost:3000` (its `@adobe/hlx-admin-mcp` server is **Adobe-internal, not on public npm** — the localhost entry does nothing without it). Plus AEM CLI + Playwright:
 ```
 bash <(curl -s https://raw.githubusercontent.com/AEMXSC/SuperSkills/main/setup.sh)
 ```
@@ -19,7 +20,7 @@ Then complete the manual steps it prints:
 2. **`gh auth login`** (GitHub).
 3. Install the **aem-code-sync** GitHub App on your org — <https://github.com/apps/aem-code-sync>.
 4. Confirm your **DA org** exists at <https://da.live>.
-5. For BUILDs, run the hlx-admin server in a separate terminal first: `npx @adobe/hlx-admin-mcp`.
+5. To **publish** DA/EDS pages from Claude, confirm the hosted DA MCP exposes preview/publish tools; otherwise publish via the da.live sidekick UI. (The `hlx-admin` localhost entry needs Adobe's internal `@adobe/hlx-admin-mcp` server, which isn't publicly installable.)
 
 ## Connecting manually
 1. Add the MCP server in your Claude client (MCP settings / connector).
