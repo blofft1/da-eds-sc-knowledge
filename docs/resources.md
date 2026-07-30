@@ -1,6 +1,7 @@
 # Resources & links
 
 ## Skills & agents
+- **SuperSkills — AEM XSC "Super Soldier" pack** — https://github.com/AEMXSC/SuperSkills · one-command install (skills + MCP + tooling): `bash <(curl -s https://raw.githubusercontent.com/AEMXSC/SuperSkills/main/setup.sh)` · advisory: competitive-intel, demo-plays, environment-matrix, tech-depth · 10 build/advisory use-cases in `use-cases/`
 - **Adobe Skills (plugin marketplace)** — https://github.com/adobe/skills · install: `/plugin marketplace add adobe/skills`
 - **EDS skills** (da-auth, da-content, page-import, generate-import-html, page-decomposition, content-modeling, building-blocks, create-site, docs-search…) — https://github.com/adobe/skills/tree/main/plugins/aem/edge-delivery-services/skills
 - **AEM Coder / Experience Modernization Agent (XMOD)** — https://aemcoder.adobe.io · docs: https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/ai-in-aem/agents/modernization/getting-started

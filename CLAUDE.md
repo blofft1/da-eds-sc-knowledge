@@ -8,13 +8,19 @@ Shared starting context for Solution Consultants working with **Document Authori
 3. Connect the DA / AEM MCP servers (see [docs/mcp-setup.md](docs/mcp-setup.md)).
 4. Ask away — the reference, lessons, and links below are in context.
 
-## Install the Adobe skills (do this once per machine)
-The Modernization Agent's skills are published by Adobe as a Claude Code plugin — **install, don't copy** (stays maintained):
+## Install the skills (once per machine)
+**Recommended — SuperSkills (AEM XSC "Super Soldier" pack):** one command installs the XSC advise+build pack **plus** the 17 Adobe EDS dev skills, GSD parallel execution, the DA + hlx-admin MCP servers, AEM CLI, and Playwright:
+```
+bash <(curl -s https://raw.githubusercontent.com/AEMXSC/SuperSkills/main/setup.sh)
+```
+Then finish the MCP/GitHub connect steps in [docs/mcp-setup.md](docs/mcp-setup.md). Repo: <https://github.com/AEMXSC/SuperSkills> — advise (competitive intel, demo plays, environment matrix, tech depth) + build (10 demo use-cases across ASO/AI-Agents/LLMO/CSC/EDS/ExMod plays).
+
+**Or just the Adobe EDS skills** (subset — no XSC pack or MCP bundle):
 ```
 /plugin marketplace add adobe/skills
 /plugin install aem-edge-delivery-services@adobe-skills
 ```
-Key EDS skills you'll use: **da-auth** (get/refresh the DA token — defers to the DA MCP if connected), **da-content** (the rules for valid DA HTML + Source API + media + silent-failure traps), `page-import`, `generate-import-html`, `page-decomposition`, `content-modeling`, `building-blocks`, `create-site`, `docs-search`. Source: <https://github.com/adobe/skills/tree/main/plugins/aem/edge-delivery-services/skills>
+Key EDS skills: **da-auth** (get/refresh the DA token — defers to the DA MCP if connected), **da-content** (valid DA HTML + Source API + media + silent-failure traps), `page-import`, `generate-import-html`, `page-decomposition`, `content-modeling`, `building-blocks`, `create-site`, `docs-search`. Source: <https://github.com/adobe/skills/tree/main/plugins/aem/edge-delivery-services/skills>
 
 ## Capabilities & MCP — read first
 You (Claude) can author/edit **DA content** and **AEM Content Fragments** in this environment **via MCP** — not just the code repo. Treat these as things you CAN do:
