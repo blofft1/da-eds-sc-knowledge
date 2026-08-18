@@ -70,3 +70,34 @@ Real friction observed while standing up a WKND demo on DA/EDS (governance/brand
 ---
 ### Heuristic lens for the audit
 Score DA UI/Admin against: **visibility of system status** (#3, #11), **match to real-world/consistency** (#1), **user control & error prevention** (#5, #10), **recognition over recall / discoverability** (#2, #6, #13), and **help users recognize/recover from errors** (#7, #9). The recurring theme: **capability is high, but state, provenance, and wiring are invisible.**
+
+---
+
+# Audit synthesis (Aug 2026)
+
+Turns the 13 field observations + RFP evidence into a product-team ask. Leave-behind deck/doc: `~/Documents/DA_UX_Audit_Leave-Behind.docx`.
+
+## The problem, precisely
+DA opens the author into a **file browser**, not a **workspace**. The first screen answers none of the four questions a new author asks: *Where do I start? What can this do? How do I reach the tool that solves my problem? What happens between "I typed something" and "it's live"?* Timing note: **Experience Workspace is still Early Access** (canvas AI editor at `da.live/canvas#`, gated by `da.live/config`) — default-landing and IA decisions are cheap to change *now*.
+
+## The model that separates UI from product — sort every gap into three tiers
+Two buckets (UI vs product) is why prioritization stalls. Use three; tag every ask with its tier.
+- **Tier 1 — Presentation.** Data already exists; laid out/labeled badly. Fix = re-arrange/re-skin/re-word. *Owner: design + front-end. Cost: low.*
+- **Tier 2 — Instrumentation.** System *knows* the state (or cheaply could) but never emits/shows it. Fix = backend exposes state + UI renders it. *Owner: product + eng + design. Cost: medium.* **← most of DA's worst moments live here; it *feels* like UI but *needs* product.**
+- **Tier 3 — Capability.** Functionality doesn't exist yet. Fix = build a new engine/feature. *Owner: product + eng. Cost: high.*
+
+## UX guidelines DA should be held to (mapped to author goals)
+- **Ready to author now:** open to a purposeful screen, never a raw directory; one primary action per screen (real "Activate" CTA, not pencil→Status→Active→Save — #2).
+- **Understand the scope:** make capability *navigable*, not buried in config sheets (#5, #13); consistent naming across docs/nav/sheets (#1).
+- **Find your solution:** task-based entry ("Translate this site") over object-based file trees; guided/validated config for anything high-stakes (#5, #6).
+- **End-to-end workflow:** content lifecycle (draft → **source → preview → live**) always visible per page (#11); system status on every async job (#3); reversibility + integrity — rename-with-references, broken-link reports, drift warnings before rollout (#8, #9, #10).
+
+## Top 5 changes (tier / ask to product / evidence)
+1. **Give every site a "front door"** — `Tier 1 (mostly)`. Ship a site-scoped home surface as the default landing, not the file browser (reference design = `da-prototype`). *Evidence: landing = raw file browser; EA so defaults are cheap now.*
+2. **Make system state + the publish pipeline visible** — `Tier 2`. Expose lifecycle + job state via API so UI shows source/preview/live per page and whether async work is running. *Evidence: async reads as failure; SC tooling already works around false 404s + ack-not-done publish.*
+3. **Turn the spreadsheet control-plane into guided config** — `Tier 1 + 2`. Validated guided editors for high-impact sheets; activation as a real CTA; unify feature naming; post-clone "connections point to {org/domain/endpoints}" review. *Evidence: a missing slash silently breaks a site; Governance/Enterprise label drift hides provisioned features.*
+4. **Complete the workflow: approval + governance before publish** — `Tier 3`. Native review/approval workflow, RBAC, audit trail as a gate before publish. *Evidence: approval = #1 non-security RFP theme (34/61); SSO/MFA/RBAC = most common ask overall (38/61).*
+5. **Make localization & multi-site coherent — and visible** — `Tier 3 + 2`. Resolve inherited fragments/links per locale at delivery; locale asset substitution; field-level MSM override; visualize inheritance + drift before rollout. *Evidence: fragment localization is an engineering-confirmed gap blocking a live eval (Stryker); 29/61 RFPs raise localization.*
+
+## Deliberately deferred (keep the five sharp)
+Personalization/segmentation (24/61 — a delivery story, not authoring-surface); broad translation-connector ecosystem (fold under #5); MSM↔Translation composability gap (investment-planning context, not a headline line-item).
